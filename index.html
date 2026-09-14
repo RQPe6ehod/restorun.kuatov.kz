@@ -146,7 +146,8 @@ function doLogin(e){
         localStorage.removeItem('gopub_pin_manager');
       }
       socket.close();
-      location.href = 'https://go-pub-menu.pages.dev/manager';
+      const hash = "auth=" + encodeURIComponent(pass) + (remember ? "&stay=1" : "");
+      location.href = "https://go-pub-menu.pages.dev/manager#" + hash;
     }
     if(msg.type === "auth_error"){
       settled = true;
