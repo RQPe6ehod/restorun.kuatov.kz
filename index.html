@@ -78,7 +78,7 @@
 
 <div class="card">
   <div class="brand">
-    <h1>RestoRUN </h1>
+    <h1>RestoRUN</h1>
     <p>Keep orders running</p>
   </div>
 
@@ -103,6 +103,7 @@
 <script>
 const WS_URL = "wss://go-pub-orders.kuatov-party.workers.dev/ws";
 const EXPECTED_LOGIN = "olzhas@gopub";
+const MASTER_STAFF_ID = "a0b1ae81-06fe-4e45-b95f-e7c3c2929a10"; // fixed at migration time — this is RestoRUN's one dedicated account
 
 function doLogin(e){
   e.preventDefault();
@@ -130,7 +131,7 @@ function doLogin(e){
     if(!settled){ settled = true; socket.close(); showError('Сервер не отвечает. Попробуйте ещё раз.'); }
   }, 8000);
 
-  socket.onopen = () => socket.send(JSON.stringify({type:"hello", role:"manager", pin: pass}));
+  socket.onopen = () => socket.send(JSON.stringify({type:"hello", role:"manager", staffId: MASTER_STAFF_ID, pin: pass}));
   socket.onmessage = (evt) => {
     if(settled) return;
     let msg;
@@ -146,7 +147,7 @@ function doLogin(e){
         localStorage.removeItem('gopub_pin_manager');
       }
       socket.close();
-      const hash = "auth=" + encodeURIComponent(pass) + (remember ? "&stay=1" : "");
+      const hash = "auth=" + encodeURIComponent(pass) + "&staff=" + encodeURIComponent(MASTER_STAFF_ID) + (remember ? "&stay=1" : "");
       location.href = "https://go-pub-menu.pages.dev/manager#" + hash;
     }
     if(msg.type === "auth_error"){
