@@ -101,7 +101,7 @@
 </div>
 
 <script>
-const WS_URL = "wss://go-pub-orders.kuatov-party.workers.dev/ws";
+const WS_URL = "wss://api.restorun.kuatov.kz/ws";
 const EXPECTED_LOGIN = "olzhas@gopub";
 const MASTER_STAFF_ID = "a0b1ae81-06fe-4e45-b95f-e7c3c2929a10"; // fixed at migration time — this is RestoRUN's one dedicated account
 
@@ -148,7 +148,7 @@ function doLogin(e){
       }
       socket.close();
       const hash = "auth=" + encodeURIComponent(pass) + "&staff=" + encodeURIComponent(MASTER_STAFF_ID) + (remember ? "&stay=1" : "");
-      location.href = "https://go-pub-menu.pages.dev/manager#" + hash;
+      location.href = "https://go-pub.restorun.kuatov.kz/manager#" + hash;
     }
     if(msg.type === "auth_error"){
       settled = true;
